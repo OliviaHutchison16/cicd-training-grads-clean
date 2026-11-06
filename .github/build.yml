@@ -1,0 +1,30 @@
+name: 1 - Hello Olivia
+
+# Run manually from the Actions tab ("Run workflow" button)
+on:
+  workflow_dispatch:
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Say hello
+        run: echo "Hello Olivia"
+      - name: Build Command
+        run: docker build -t cicd-training-2026 .
+      - name: Create Release
+        id: create_release
+        uses: comnoco/create-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
