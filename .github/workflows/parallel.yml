@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: Unit tests - ${{ matrix.test-class }
+    name: Unit tests - ${{ matrix.test-class }}
     strategy:
       fail-fast: true
       matrix: 
