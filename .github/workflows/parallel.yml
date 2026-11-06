@@ -6,6 +6,13 @@ on:
 
 jobs:
   test:
+    name: Unit tests - ${{ matrix.test-class }
+    strategy:
+      fail-fast: true
+      matrix: 
+        test-class:
+          - HelloControllerTest
+          - CicdTrainingApplicationTests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,7 +25,7 @@ jobs:
           cache: 'maven'
       - run: java --version
       - name: Run with Maven
-        run: mvn -B test
+        run: mvn -B -Dtest="${{ matrix.test-class }}" test
   build:
     runs-on: ubuntu-latest
     steps:
