@@ -1,0 +1,28 @@
+name: 6 - Parallel
+
+# Run manually from the Actions tab ("Run workflow" button)
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+      - run: java --version
+      - name: Run with Maven
+        run: mvn -B test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Docker build
+        run: docker build -t cicd-training-2026 .
