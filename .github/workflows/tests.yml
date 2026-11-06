@@ -10,17 +10,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Say hello
-        run: echo "Hello Olivia"
-      - name: Set up JDK 21 for x64
+
+      - name: Setup Java
         uses: actions/setup-java@v6
         with:
-          java-version: '21'
           distribution: 'temurin'
-          cache: maven
+          java-version: '21'
+          cache: 'maven'
       - run: java --version
-        
-      - name: Maven Test
+      - name: Run with Maven
         run: mvn -B test
-      - name: Build Command
+      - name: Docker build
         run: docker build -t cicd-training-2026 .
